@@ -7,7 +7,7 @@ import pandas as pd
 # PAGE CONFIG
 # =========================================================
 st.set_page_config(
-    page_title="Gamelan Melayu Warisan",
+    page_title="Gamelan Melayu Interaktif",
     page_icon="🎶",
     layout="wide"
 )
@@ -361,3 +361,4 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
