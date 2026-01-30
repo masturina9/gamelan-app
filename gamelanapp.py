@@ -157,6 +157,9 @@ def play_note(inst, song, note):
 def auto_play(inst, song_name):
     st.info(f"▶️ Memainkan {song_name} secara automatik...")
     for note in songs[song_name]["sequence"]:
+        if st.session_state.get("stop_autoplay"):
+            st.toast("⏹️ Mainan dihentikan")
+            break
         play_note(inst, song_name, note)
         time.sleep(0.3)
 
@@ -183,7 +186,7 @@ def safe_rerun():
 # =========================================================
 menu = st.sidebar.selectbox(
     "Pilih Menu",
-    ["Studio Interaktif", "Demo Lagu Penuh", "Kuiz Bunyi", "Peta Asal-usul"]
+    ["Studio Interaktif", "Demo Lagu Penuh", "Kuiz Bunyi"]
 )
 
 # =========================================================
@@ -204,8 +207,16 @@ if menu == "Studio Interaktif":
             if st.button(f"{label}\n{note}", key=f"studio_note_{song}_{i}"):
                 play_note(inst, song, note)
 
+    if "stop_autoplay" not in st.session_state:
+        st.session_state.stop_autoplay = False
+
     if st.button(f"▶️ Main Skala {song} (Auto)", use_container_width=True, key="studio_auto"):
+        st.session_state.stop_autoplay = False
         auto_play(inst, song)
+
+    if st.button("⏹️ Henti Main", use_container_width=True, key="studio_stop"):
+        st.session_state.stop_autoplay = True
+        st.toast("⏹️ Audio dihentikan")
 
 # =========================================================
 # DEMO LAGU
@@ -235,6 +246,7 @@ elif menu == "Demo Lagu Penuh":
             st.audio(b"")
             st.toast("⏹️ Muzik dihentikan")
             safe_rerun()
+            
     st.caption("Kredit : YouTube : WarisanNusantara - Warisan Gamelan Melayu - Timang Burung, Youtube : cataloQue - Lenggang Kangkung")
 
 # =========================================================
@@ -375,6 +387,7 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
 
 
 
