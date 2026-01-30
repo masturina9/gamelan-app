@@ -154,14 +154,17 @@ LENGGANG KANGKUNG
 def play_note(inst, song, note):
     st.toast(f"🔊 {inst}: {note}")
 
-def auto_play(inst, song_name):
-    st.info(f"▶️ Memainkan {song_name} secara automatik...")
-    for note in songs[song_name]["sequence"]:
-        if st.session_state.get("stop_autoplay"):
-            st.toast("⏹️ Mainan dihentikan")
-            break
-        play_note(inst, song_name, note)
-        time.sleep(0.3)
+def auto_play_step(inst, song_name):
+    sequence = songs[song_name]["sequence"]
+    idx = st.session_state.get("autoplay_idx", 0)
+    if idx >= len(sequence):
+        st.session_state.autoplay_active = False
+        st.session_state.autoplay_idx = 0
+        st.toast("✅ Mainan selesai")
+        return
+    play_note(inst, song_name, sequence[idx])
+    st.session_state.autoplay_idx = idx + 1
+    time.sleep(0.3)
 
 def auto_play_silent(song_name, audio_paths):
     audio_path = audio_paths[song_name]
@@ -207,16 +210,25 @@ if menu == "Studio Interaktif":
             if st.button(f"{label}\n{note}", key=f"studio_note_{song}_{i}"):
                 play_note(inst, song, note)
 
-    if "stop_autoplay" not in st.session_state:
-        st.session_state.stop_autoplay = False
+    if "autoplay_active" not in st.session_state:
+        st.session_state.autoplay_active = False
+    if "autoplay_idx" not in st.session_state:
+        st.session_state.autoplay_idx = 0
 
     if st.button(f"▶️ Main Skala {song} (Auto)", use_container_width=True, key="studio_auto"):
-        st.session_state.stop_autoplay = False
-        auto_play(inst, song)
+         st.session_state.autoplay_active = True
+        st.session_state.autoplay_idx = 0
 
     if st.button("⏹️ Henti Main", use_container_width=True, key="studio_stop"):
-        st.session_state.stop_autoplay = True
+        st.session_state.autoplay_active = False
+        st.session_state.autoplay_idx = 0
         st.toast("⏹️ Audio dihentikan")
+        
+    if st.session_state.autoplay_active:
+        st.info(f"▶️ Memainkan {song} secara automatik...")
+        auto_play_step(inst, song)
+        if st.session_state.autoplay_active:
+            safe_rerun()
 
 # =========================================================
 # DEMO LAGU
@@ -387,6 +399,7 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
 
 
 
