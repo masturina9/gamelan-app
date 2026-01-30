@@ -221,7 +221,7 @@ elif menu == "Demo Lagu Penuh":
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("▶️ Main Lagu", use_container_width=True, key="demo_play"):␊
+        if st.button("▶️ Main Lagu", use_container_width=True, key="demo_play"):
             st.session_state.music_playing = True
             auto_play_silent(song, demo_songs)
             st.session_state.music_playing = False
@@ -372,6 +372,7 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
 
 
 
