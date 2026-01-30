@@ -180,7 +180,6 @@ def origin_map():
     st.map(df)
 
 def safe_rerun():
-    # Streamlit baru ada st.rerun(); kita guard supaya tak crash kalau version lain.
     if hasattr(st, "rerun"):
         st.rerun()
 
@@ -196,7 +195,7 @@ menu = st.sidebar.selectbox(
 # STUDIO INTERAKTIF
 # =========================================================
 if menu == "Studio Interaktif":
-    st.header("🎹 Studio Interaktif")
+    st.header("🎶 Studio Interaktif")
     inst = st.selectbox("Pilih Instrumen", list(instruments.keys()), key="studio_inst")
     song = st.selectbox("Pilih Lagu", list(songs.keys()), key="studio_song")
 
@@ -387,6 +386,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
