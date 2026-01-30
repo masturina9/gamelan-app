@@ -216,7 +216,7 @@ if menu == "Studio Interaktif":
         st.session_state.autoplay_idx = 0
 
     if st.button(f"▶️ Main Skala {song} (Auto)", use_container_width=True, key="studio_auto"):
-         st.session_state.autoplay_active = True
+        st.session_state.autoplay_active = True
         st.session_state.autoplay_idx = 0
 
     if st.button("⏹️ Henti Main", use_container_width=True, key="studio_stop"):
@@ -399,6 +399,7 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
 
 
 
