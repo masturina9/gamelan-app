@@ -156,10 +156,13 @@ def auto_play(inst, song_name):
         play_note(inst, song_name, note)
         time.sleep(0.3)
 
-def auto_play_silent(inst, song_name):
-    st.toast(f"🎵 Memainkan {song_name} dengan {inst}...")
-    for _ in songs[song_name]["sequence"]:
-        time.sleep(0.2)
+def auto_play_silent(song):
+    audio_path = songs[song]
+
+    if os.path.exists(audio_path):
+        st.audio(audio_path, format="audio/mp3")
+    else:
+        st.error(f"❌ Audio tak jumpa: {audio_path}")
 
 def origin_map():
     st.subheader("🗺️ Asal-usul Gamelan")
@@ -205,8 +208,11 @@ if menu == "Studio Interaktif":
 # =========================================================
 elif menu == "Demo Lagu Penuh":
     st.header("🎧 Demo Lagu Penuh")
-    inst = st.selectbox("Pilih Instrumen", list(instruments.keys()), key="demo_inst")
-    song = st.selectbox("Pilih Lagu", list(songs.keys()), key="demo_song")
+    song = {
+    "Timang Burung": "demo/timang_burung.mp3",
+    "Lenggang Kangkung": "demo/lenggang_kangkung.mp3",
+}
+
 
     if "music_playing" not in st.session_state:
         st.session_state.music_playing = False
@@ -215,14 +221,16 @@ elif menu == "Demo Lagu Penuh":
     with col1:
         if st.button("▶️ Main Lagu", use_container_width=True, key="demo_play"):
             st.session_state.music_playing = True
-            auto_play_silent(inst, song)
+            auto_play_silent(song)
             st.session_state.music_playing = False
 
     with col2:
         if st.button("⏹️ Hentikan", use_container_width=True, key="demo_stop"):
             st.session_state.music_playing = False
+            st.audio(b"")
             st.toast("⏹️ Muzik dihentikan")
             safe_rerun()
+
 
 # =========================================================
 # QUIZ BUNYI (STRUCTURED GAME)
@@ -361,4 +369,5 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
 
