@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import time
 import random
@@ -156,8 +157,8 @@ def auto_play(inst, song_name):
         play_note(inst, song_name, note)
         time.sleep(0.3)
 
-def auto_play_silent(song):
-    audio_path = songs[song]
+def auto_play_silent(song_name, audio_paths):
+    audio_path = audio_paths[song_name]
 
     if os.path.exists(audio_path):
         st.audio(audio_path, format="audio/mp3")
@@ -208,20 +209,21 @@ if menu == "Studio Interaktif":
 # =========================================================
 elif menu == "Demo Lagu Penuh":
     st.header("🎧 Demo Lagu Penuh")
-    song = {
-    "Timang Burung": "demo/timang_burung.mp3",
-    "Lenggang Kangkung": "demo/lenggang_kangkung.mp3",
-}
+    demo_songs = {
+        "Timang Burung": "demo/timang_burung.mp3",
+        "Lenggang Kangkung": "demo/lenggang_kangkung.mp3",
+    }
 
+    song = st.selectbox("Pilih Lagu Demo", list(demo_songs.keys()), key="demo_song")
 
     if "music_playing" not in st.session_state:
         st.session_state.music_playing = False
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("▶️ Main Lagu", use_container_width=True, key="demo_play"):
+        if st.button("▶️ Main Lagu", use_container_width=True, key="demo_play"):␊
             st.session_state.music_playing = True
-            auto_play_silent(song)
+            auto_play_silent(song, demo_songs)
             st.session_state.music_playing = False
 
     with col2:
@@ -370,6 +372,7 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
 
 
 
