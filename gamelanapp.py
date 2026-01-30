@@ -230,8 +230,7 @@ elif menu == "Demo Lagu Penuh":
             st.audio(b"")
             st.toast("⏹️ Muzik dihentikan")
             safe_rerun()
-
-
+st.caption("Kredit : YouTube : WarisanNusantara - Warisan Gamelan Melayu - Timang Burung, Youtube : cataloQue - Lenggang Kangkung")
 # =========================================================
 # QUIZ BUNYI (STRUCTURED GAME)
 # =========================================================
@@ -369,5 +368,6 @@ elif menu == "Peta Asal-usul":
 # FOOTER
 # =========================================================
 st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
+
 
 
