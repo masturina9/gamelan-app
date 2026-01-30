@@ -389,16 +389,6 @@ elif menu == "Kuiz Bunyi":
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-# =========================================================
-# ORIGIN MAP
-# =========================================================
-elif menu == "Peta Asal-usul":
-    origin_map()
-
-# =========================================================
-# FOOTER
-# =========================================================
-st.markdown("<center style='color:gold'>Warisan Budaya Kita 🇲🇾</center>", unsafe_allow_html=True)
 
 
 
