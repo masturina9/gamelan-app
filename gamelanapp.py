@@ -261,15 +261,14 @@ if menu == "Kenali Bunyi Instrumen":
     </style>
     """, unsafe_allow_html=True)
 
-if "kenali_playing" not in st.session_state:
+    if "kenali_playing" not in st.session_state:
         st.session_state.kenali_playing = None
-if "kenali_play_id" not in st.session_state:
+    if "kenali_play_id" not in st.session_state:
         st.session_state.kenali_play_id = 0
-        
-inst_items = list(instruments.items())
-    
+
+    inst_items = list(instruments.items())
     for row_start in range(0, len(inst_items), 2):
-    cols = st.columns(2)
+        cols = st.columns(2)
         for col, (name, info) in zip(cols, inst_items[row_start:row_start + 2]):
             with col:
                 image_path = instrument_image_path(info["image"])
@@ -277,7 +276,7 @@ inst_items = list(instruments.items())
                     st.image(image_path, use_container_width=True)
                 else:
                     st.warning(f"Gambar tidak dijumpai: photos/{info['image']}")
-                    audio_items = normalize_audio_list(info["audio"])
+                audio_items = normalize_audio_list(info["audio"])
                 st.markdown(
                     f"""
                     <div class="inst-card">
@@ -289,7 +288,7 @@ inst_items = list(instruments.items())
                     """,
                     unsafe_allow_html=True
                 )
-                
+
                 for idx, audio_name in enumerate(audio_items, start=1):
                     audio_path = instrument_audio_path(name, audio_name)
                     label_suffix = f" {idx}" if len(audio_items) > 1 else ""
@@ -309,6 +308,7 @@ inst_items = list(instruments.items())
                             )
                     else:
                         st.warning(f"Audio tidak dijumpai: audio/{name.lower()}/{audio_name}")
+
 
 # =========================================================
 # STUDIO INTERAKTIF
@@ -515,6 +515,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
