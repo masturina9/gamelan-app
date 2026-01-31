@@ -266,7 +266,7 @@ if "kenali_playing" not in st.session_state:
 if "kenali_play_id" not in st.session_state:
         st.session_state.kenali_play_id = 0
         
-    inst_items = list(instruments.items())
+inst_items = list(instruments.items())
     
     for row_start in range(0, len(inst_items), 2):
     cols = st.columns(2)
@@ -515,6 +515,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
