@@ -265,10 +265,11 @@ if "kenali_playing" not in st.session_state:
         st.session_state.kenali_playing = None
 if "kenali_play_id" not in st.session_state:
         st.session_state.kenali_play_id = 0
-    
+        
     inst_items = list(instruments.items())
+    
     for row_start in range(0, len(inst_items), 2):
-        cols = st.columns(2)
+    cols = st.columns(2)
         for col, (name, info) in zip(cols, inst_items[row_start:row_start + 2]):
             with col:
                 image_path = instrument_image_path(info["image"])
@@ -514,6 +515,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
