@@ -81,11 +81,14 @@ def parse_sequence(sequence_text):
 # =========================================================
 # DATA
 # =========================================================
-PHOTO_DIR = os.path.join(os.path.dirname(__file__), "photos")
+BASE_DIR = os.path.dirname(__file__)
+PHOTO_DIR = os.path.join(BASE_DIR, "photos")
+AUDIO_DIR = os.path.join(BASE_DIR, "audio")
 
 instruments = {
     "Saron": {
         "image":"saron.jpg",
+        "audio": ["saron_demung.mp3", "saron_barung.mp3", "saron_panerus.mp3"],
         "desc":"Melodi asas",
         "function":"Memainkan melodi utama yang memandu lagu.",
         "sound":"tajam",
@@ -94,6 +97,7 @@ instruments = {
     },
     "Bonang":{
         "image":"bonang.jpg",
+        "audio":"bonang.mp3
         "desc":"Melodi hiasan",
         "function":"Menghias melodi dengan variasi yang berkilau.",
         "sound":"berlapis",
@@ -102,6 +106,7 @@ instruments = {
     },
     "Gambang":{
         "image":"gambang.jpg",
+        "audio":"gambang.mp3"
         "desc":"Tekstur kayu",
         "function":"Menambah tekstur kayu yang lembut dalam lagu.",
         "sound":"lembut",
@@ -110,6 +115,7 @@ instruments = {
     },
     "Kenong":{
         "image":"kenong.jpg",
+        "audio":"kenong.mp3",
         "desc":"Struktur lagu",
         "function":"Menanda struktur dan bahagian dalam lagu.",
         "sound":"dalam",
@@ -118,6 +124,7 @@ instruments = {
     },
     "Gong":{
         "image":"gong.jpg",
+        "audio":"gong.mp3
         "desc":"Penamat frasa",
         "function":"Menutup frasa dengan penegasan yang padu.",
         "sound":"dalam",
@@ -178,6 +185,17 @@ def instrument_image_path(image_name):
         return local_path
     return None
 
+def instrument_audio_path(name, audio_name):
+    local_path = os.path.join(AUDIO_DIR, name.lower(), audio_name)
+    if os.path.exists(local_path):
+        return local_path
+    return None
+
+def normalize_audio_list(audio_value):
+    if isinstance(audio_value, list):
+        return audio_value
+    return [audio_value]
+    
 def auto_play_step(inst, song_name):
     sequence = songs[song_name]["sequence"]
     idx = st.session_state.get("autoplay_idx", 0)
@@ -243,6 +261,11 @@ if menu == "Kenali Bunyi Instrumen":
     </style>
     """, unsafe_allow_html=True)
 
+if "kenali_playing" not in st.session_state:
+        st.session_state.kenali_playing = None
+    if "kenali_play_id" not in st.session_state:
+        st.session_state.kenali_play_id = 0
+    
     inst_items = list(instruments.items())
     for row_start in range(0, len(inst_items), 2):
         cols = st.columns(2)
@@ -253,6 +276,7 @@ if menu == "Kenali Bunyi Instrumen":
                     st.image(image_path, use_container_width=True)
                 else:
                     st.warning(f"Gambar tidak dijumpai: photos/{info['image']}")
+                    audio_items = normalize_audio_list(info["audio"])
                 st.markdown(
                     f"""
                     <div class="inst-card">
@@ -264,6 +288,26 @@ if menu == "Kenali Bunyi Instrumen":
                     """,
                     unsafe_allow_html=True
                 )
+                
+                for idx, audio_name in enumerate(audio_items, start=1):
+                    audio_path = instrument_audio_path(name, audio_name)
+                    label_suffix = f" {idx}" if len(audio_items) > 1 else ""
+                    if audio_path:
+                        if st.button(
+                            f"▶️ Main Bunyi {name}{label_suffix}",
+                            use_container_width=True,
+                            key=f"kenali_play_{name}_{idx}"
+                        ):
+                            st.session_state.kenali_playing = f"{name}-{idx}"
+                            st.session_state.kenali_play_id += 1
+                        if st.session_state.kenali_playing == f"{name}-{idx}":
+                            render_audio_player(
+                                audio_path,
+                                autoplay=True,
+                                element_id=f"kenali-audio-{name}-{idx}-{st.session_state.kenali_play_id}"
+                            )
+                    else:
+                        st.warning(f"Audio tidak dijumpai: audio/{name.lower()}/{audio_name}")
 
 # =========================================================
 # STUDIO INTERAKTIF
@@ -470,6 +514,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
