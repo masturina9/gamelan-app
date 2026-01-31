@@ -309,11 +309,11 @@ elif menu == "Studio Interaktif":
 # =========================================================
 # DEMO LAGU
 # =========================================================
-elif menu == "Demo Lagu Penuh":␊
-    st.header("🎧 Demo Lagu Penuh")␊
-    demo_songs = {␊
-        "Timang Burung": "demo/timang_burung.mp3",␊
-        "Lenggang Kangkung": "demo/lenggang_kangkung.mp3",␊
+elif menu == "Demo Lagu Penuh":
+    st.header("🎧 Demo Lagu Penuh")
+    demo_songs = {
+        "Timang Burung": "demo/timang_burung.mp3",
+        "Lenggang Kangkung": "demo/lenggang_kangkung.mp3",
     }
 
     song = st.selectbox("Pilih Lagu Demo", list(demo_songs.keys()), key="demo_song")
@@ -470,6 +470,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
