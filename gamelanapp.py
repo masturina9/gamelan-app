@@ -106,7 +106,7 @@ instruments = {
     },
     "Gambang":{
         "image":"gambang.jpg",
-        "audio":"gambang.mp3"
+        "audio":"gambang.mp3",
         "desc":"Tekstur kayu",
         "function":"Menambah tekstur kayu yang lembut dalam lagu.",
         "sound":"lembut",
@@ -124,7 +124,7 @@ instruments = {
     },
     "Gong":{
         "image":"gong.jpg",
-        "audio":"gong.mp3
+        "audio":"gong.mp3",
         "desc":"Penamat frasa",
         "function":"Menutup frasa dengan penegasan yang padu.",
         "sound":"dalam",
@@ -514,6 +514,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
