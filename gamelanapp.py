@@ -276,7 +276,7 @@ if menu == "Kenali Bunyi Instrumen":
                     st.image(image_path, use_container_width=True)
                 else:
                     st.warning(f"Gambar tidak dijumpai: photos/{info['image']}")
-                audio_items = normalize_audio_list(info["audio"])
+                audio_items = normalize_audio_list(info["kenali"])
                 st.markdown(
                     f"""
                     <div class="inst-card">
@@ -515,6 +515,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
