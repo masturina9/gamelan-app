@@ -83,12 +83,12 @@ def parse_sequence(sequence_text):
 # =========================================================
 BASE_DIR = os.path.dirname(__file__)
 PHOTO_DIR = os.path.join(BASE_DIR, "photos")
-AUDIO_DIR = os.path.join(BASE_DIR, "audio")
+AUDIO_DIR = os.path.join(BASE_DIR, "kenali")
 
 instruments = {
     "Saron": {
         "image":"saron.jpg",
-        "audio": ["saron_demung.mp3", "saron_barung.mp3", "saron_panerus.mp3"],
+        "kenali": ["saron_demung.mp3", "saron_barung.mp3", "saron_panerus.mp3"],
         "desc":"Melodi asas",
         "function":"Memainkan melodi utama yang memandu lagu.",
         "sound":"tajam",
@@ -97,7 +97,7 @@ instruments = {
     },
     "Bonang":{
         "image":"bonang.jpg",
-        "audio":"bonang.mp3",
+        "kenali":"bonang.mp3",
         "desc":"Melodi hiasan",
         "function":"Menghias melodi dengan variasi yang berkilau.",
         "sound":"berlapis",
@@ -106,7 +106,7 @@ instruments = {
     },
     "Gambang":{
         "image":"gambang.jpg",
-        "audio":"gambang.mp3",
+        "kenali":"gambang.mp3",
         "desc":"Tekstur kayu",
         "function":"Menambah tekstur kayu yang lembut dalam lagu.",
         "sound":"lembut",
@@ -115,7 +115,7 @@ instruments = {
     },
     "Kenong":{
         "image":"kenong.jpg",
-        "audio":"kenong.mp3",
+        "kenali":"kenong.mp3",
         "desc":"Struktur lagu",
         "function":"Menanda struktur dan bahagian dalam lagu.",
         "sound":"dalam",
@@ -124,7 +124,7 @@ instruments = {
     },
     "Gong":{
         "image":"gong.jpg",
-        "audio":"gong.mp3",
+        "kenali":"gong.mp3",
         "desc":"Penamat frasa",
         "function":"Menutup frasa dengan penegasan yang padu.",
         "sound":"dalam",
@@ -515,6 +515,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
