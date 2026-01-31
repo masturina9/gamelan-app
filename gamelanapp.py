@@ -171,6 +171,12 @@ LENGGANG KANGKUNG
 def play_note(inst, song, note):
     st.toast(f"🔊 {inst}: {note}")
 
+def instrument_image_path(image_name):
+    local_path = os.path.join(PHOTO_DIR, image_name)
+    if os.path.exists(local_path):
+        return local_path
+    return None
+
 def auto_play_step(inst, song_name):
     sequence = songs[song_name]["sequence"]
     idx = st.session_state.get("autoplay_idx", 0)
@@ -211,10 +217,44 @@ menu = st.sidebar.selectbox(
 # KENALI BUNYI INSTRUMEN
 
 if menu == "Kenali Bunyi Instrumen":
-    st.header("Kenali Bunyi Instrumen")
-    st.image(instrument["image"])
-    st.write(instruments["desc"])
-    st.markdown(f'<div class="notation-box">{songs[song]}</div>', unsafe_allow_html=True)
+    st.header("Kenal Instrumen")
+    st.caption("Info ringkas tentang instrumen utama gamelan.")
+
+    st.markdown("""
+    <style>
+    .inst-card {
+        background:#3E2723;
+        padding:16px;
+        border-radius:14px;
+        border:1px solid #5D4037;
+        margin-bottom:16px;
+    }
+    .inst-title {font-size:20px; font-weight:800; color:#FFD700; margin-bottom:6px;}
+    .inst-meta {color:#FFF8E1; margin-bottom:6px;}
+    </style>
+    """, unsafe_allow_html=True)
+
+    inst_items = list(instruments.items())
+    for row_start in range(0, len(inst_items), 2):
+        cols = st.columns(2)
+        for col, (name, info) in zip(cols, inst_items[row_start:row_start + 2]):
+            with col:
+                image_path = instrument_image_path(info["image"])
+                if image_path:
+                    st.image(image_path, use_container_width=True)
+                else:
+                    st.warning(f"Gambar tidak dijumpai: photos/{info['image']}")
+                st.markdown(
+                    f"""
+                    <div class="inst-card">
+                        <div class="inst-title">{name}</div>
+                        <div class="inst-meta"><strong>Fungsi:</strong> {info["function"]}</div>
+                        <div class="inst-meta"><strong>Bunyi macam apa?</strong> {info["sound"]}</div>
+                        <div class="inst-meta"><strong>Peranan dalam simfoni kekeluargaan:</strong> {info["role"]}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
 # =========================================================
 # STUDIO INTERAKTIF
@@ -411,6 +451,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
