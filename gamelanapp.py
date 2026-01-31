@@ -198,10 +198,6 @@ if menu == "Kenali Bunyi Instrumen":
     st.image(instrument["image"])
     st.write(instruments["desc"])
     st.markdown(f'<div class="notation-box">{songs[song]}</div>', unsafe_allow_html=True)
-    
-    st.button(f"▶️ Main Skala {song} (Auto)", use_container_width=True, key="studio_auto"):
-        st.session_state.autoplay_active = True
-        st.session_state.autoplay_idx = 0
 
 # =========================================================
 # STUDIO INTERAKTIF
@@ -398,6 +394,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
