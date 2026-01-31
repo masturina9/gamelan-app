@@ -1,3 +1,4 @@
+import base64
 import os
 import streamlit as st
 import time
@@ -189,11 +190,19 @@ def auto_play_step(inst, song_name):
     st.session_state.autoplay_idx = idx + 1
     time.sleep(0.3)
 
-def auto_play_silent(song_name, audio_paths):
-    audio_path = audio_paths[song_name]
-
+def render_audio_player(audio_path, autoplay=False, element_id="demo-audio"):
     if os.path.exists(audio_path):
-        st.audio(audio_path, format="audio/mp3")
+        with open(audio_path, "rb") as audio_file:
+            audio_base64 = base64.b64encode(audio_file.read()).decode("utf-8")
+        autoplay_attr = "autoplay" if autoplay else ""
+        st.markdown(
+            f"""
+            <audio id="{element_id}" controls {autoplay_attr} controlslist="nodownload noplaybackrate" style="width:100%;">
+                <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
+            </audio>
+            """,
+            unsafe_allow_html=True
+        )
     else:
         st.error(f"❌ Audio tak jumpa: {audio_path}")
 
@@ -300,31 +309,38 @@ elif menu == "Studio Interaktif":
 # =========================================================
 # DEMO LAGU
 # =========================================================
-elif menu == "Demo Lagu Penuh":
-    st.header("🎧 Demo Lagu Penuh")
-    demo_songs = {
-        "Timang Burung": "demo/timang_burung.mp3",
-        "Lenggang Kangkung": "demo/lenggang_kangkung.mp3",
+elif menu == "Demo Lagu Penuh":␊
+    st.header("🎧 Demo Lagu Penuh")␊
+    demo_songs = {␊
+        "Timang Burung": "demo/timang_burung.mp3",␊
+        "Lenggang Kangkung": "demo/lenggang_kangkung.mp3",␊
     }
 
     song = st.selectbox("Pilih Lagu Demo", list(demo_songs.keys()), key="demo_song")
 
     if "music_playing" not in st.session_state:
         st.session_state.music_playing = False
+    if "demo_play_id" not in st.session_state:
+        st.session_state.demo_play_id = 0
 
     col1, col2 = st.columns(2)
     with col1:
         if st.button("▶️ Main Lagu", use_container_width=True, key="demo_play"):
             st.session_state.music_playing = True
-            auto_play_silent(song, demo_songs)
-            st.session_state.music_playing = False
+            st.session_state.demo_play_id += 1
 
     with col2:
         if st.button("⏹️ Hentikan", use_container_width=True, key="demo_stop"):
             st.session_state.music_playing = False
-            st.audio(b"")
             st.toast("⏹️ Muzik dihentikan")
             safe_rerun()
+
+    if st.session_state.music_playing:
+        render_audio_player(
+            demo_songs[song],
+            autoplay=True,
+            element_id=f"demo-audio-{st.session_state.demo_play_id}"
+        )
             
     st.caption("Kredit : YouTube : WarisanNusantara - Warisan Gamelan Melayu - Timang Burung, Youtube : cataloQue - Lenggang Kangkung")
 
@@ -454,6 +470,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
