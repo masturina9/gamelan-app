@@ -97,7 +97,7 @@ instruments = {
     },
     "Bonang":{
         "image":"bonang.jpg",
-        "audio":"bonang.mp3
+        "audio":"bonang.mp3",
         "desc":"Melodi hiasan",
         "function":"Menghias melodi dengan variasi yang berkilau.",
         "sound":"berlapis",
@@ -514,6 +514,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
