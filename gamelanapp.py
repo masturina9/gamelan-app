@@ -80,30 +80,47 @@ def parse_sequence(sequence_text):
 # =========================================================
 # DATA
 # =========================================================
+PHOTO_DIR = os.path.join(os.path.dirname(__file__), "photos")
+
 instruments = {
     "Saron": {
-        "image":"https://upload.wikimedia.org/wikipedia/commons/6/69/Saron_demung_STSI.jpg",
+        "image":"saron.jpg",
         "desc":"Melodi asas",
+        "function":"Memainkan melodi utama yang memandu lagu.",
+        "sound":"tajam",
+        "role":"Pemimpin keluarga yang menetapkan arah dan tempo.",
         "hint":"Bunyi yang tajam dan jelas"
     },
     "Bonang":{
-        "image":"https://upload.wikimedia.org/wikipedia/commons/a/a2/Bonang_barung_STSI.jpg",
+        "image":"bonang.jpg",
         "desc":"Melodi hiasan",
+        "function":"Menghias melodi dengan variasi yang berkilau.",
+        "sound":"berlapis",
+        "role":"Anak sulung yang menceriakan suasana keluarga.",
         "hint":"Bunyi yang berdering dan merdu"
     },
     "Gambang":{
-        "image":"https://upload.wikimedia.org/wikipedia/commons/a/a0/Gambang_STSI.jpg",
+        "image":"gambang.jpg",
         "desc":"Tekstur kayu",
+        "function":"Menambah tekstur kayu yang lembut dalam lagu.",
+        "sound":"lembut",
+        "role":"Adik yang membawa kelembutan dan harmoni.",
         "hint":"Bunyi yang lembut dan hangat"
     },
     "Kenong":{
-        "image":"https://upload.wikimedia.org/wikipedia/commons/6/63/Kenong_Japan.jpg",
+        "image":"kenong.jpg",
         "desc":"Struktur lagu",
+        "function":"Menanda struktur dan bahagian dalam lagu.",
+        "sound":"dalam",
+        "role":"Nenek yang menandakan giliran dan susunan keluarga.",
         "hint":"Bunyi yang dalam dan bergema"
     },
     "Gong":{
-        "image":"https://upload.wikimedia.org/wikipedia/commons/0/03/Gong_ageng_kempul_suwukan_STSI.jpg",
+        "image":"gong.jpg",
         "desc":"Penamat frasa",
+        "function":"Menutup frasa dengan penegasan yang padu.",
+        "sound":"dalam",
+        "role":"Datuk yang mengakhiri cerita dengan wibawa.",
         "hint":"Bunyi yang kuat dan berkuasa"
     }
 }
@@ -394,6 +411,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
