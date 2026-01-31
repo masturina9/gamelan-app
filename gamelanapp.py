@@ -186,10 +186,13 @@ def instrument_image_path(image_name):
     return None
 
 def instrument_audio_path(name, audio_name):
-    local_path = os.path.join(AUDIO_DIR, name.lower(), audio_name)
-    if os.path.exists(local_path):
-        return local_path
-    return None
+    scoped_path = os.path.join(AUDIO_DIR, name.lower(), audio_name)
+    if os.path.exists(scoped_path):
+        return scoped_path
+    flat_path = os.path.join(AUDIO_DIR, audio_name)
+    if os.path.exists(flat_path):
+        return flat_path
+    return NONE
 
 def normalize_audio_list(audio_value):
     if isinstance(audio_value, list):
@@ -307,8 +310,10 @@ if menu == "Kenali Bunyi Instrumen":
                                 element_id=f"kenali-audio-{name}-{idx}-{st.session_state.kenali_play_id}"
                             )
                     else:
-                        st.warning(f"Audio tidak dijumpai: audio/{name.lower()}/{audio_name}")
-
+                         st.warning(
+                            "Audio tidak dijumpai: "
+                            f"kenali/{name.lower()}/{audio_name} atau kenali/{audio_name}"
+                        )
 
 # =========================================================
 # STUDIO INTERAKTIF
@@ -515,6 +520,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
