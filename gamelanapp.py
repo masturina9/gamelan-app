@@ -263,7 +263,7 @@ if menu == "Kenali Bunyi Instrumen":
 
 if "kenali_playing" not in st.session_state:
         st.session_state.kenali_playing = None
-    if "kenali_play_id" not in st.session_state:
+if "kenali_play_id" not in st.session_state:
         st.session_state.kenali_play_id = 0
     
     inst_items = list(instruments.items())
@@ -514,6 +514,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
