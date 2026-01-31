@@ -188,13 +188,25 @@ def safe_rerun():
 # =========================================================
 menu = st.sidebar.selectbox(
     "Pilih Menu",
-    ["Studio Interaktif", "Demo Lagu Penuh", "Kuiz Bunyi"]
+    ["Kenali Bunyi Instrumen","Studio Interaktif", "Demo Lagu Penuh", "Kuiz Bunyi"]
 )
+
+# KENALI BUNYI INSTRUMEN
+
+if menu == "Kenali Bunyi Instrumen":
+    st.header("Kenali Bunyi Instrumen")
+    st.image(instrument["image"])
+    st.write(instruments["desc"])
+    st.markdown(f'<div class="notation-box">{songs[song]}</div>', unsafe_allow_html=True)
+    
+    st.button(f"▶️ Main Skala {song} (Auto)", use_container_width=True, key="studio_auto"):
+        st.session_state.autoplay_active = True
+        st.session_state.autoplay_idx = 0
 
 # =========================================================
 # STUDIO INTERAKTIF
 # =========================================================
-if menu == "Studio Interaktif":
+elif menu == "Studio Interaktif":
     st.header("🎶 Studio Interaktif")
     inst = st.selectbox("Pilih Instrumen", list(instruments.keys()), key="studio_inst")
     song = st.selectbox("Pilih Lagu", list(songs.keys()), key="studio_song")
@@ -386,6 +398,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
