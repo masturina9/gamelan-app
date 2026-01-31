@@ -263,8 +263,11 @@ elif menu == "Studio Interaktif":
     st.header("🎶 Studio Interaktif")
     inst = st.selectbox("Pilih Instrumen", list(instruments.keys()), key="studio_inst")
     song = st.selectbox("Pilih Lagu", list(songs.keys()), key="studio_song")
-
-    st.image(instruments[inst]["image"])
+    studio_image_path = instrument_image_path(instruments[inst]["image"])
+    if studio_image_path:
+        st.image(studio_image_path)
+    else:
+        st.warning(f"Gambar tidak dijumpai: photos/{instruments[inst]['image']}")
     st.write(instruments[inst]["desc"])
     st.markdown(f'<div class="notation-box">{songs[song]["notation"]}</div>', unsafe_allow_html=True)
 
@@ -451,6 +454,7 @@ elif menu == "Kuiz Bunyi":
         safe_rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
