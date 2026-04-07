@@ -14,6 +14,24 @@ st.set_page_config(
     layout="wide"
 )
 
+# Add this at the very top of your app.py, after st.set_page_config
+
+# Initialize shopping cart
+if 'cart' not in st.session_state:
+    st.session_state.cart = []
+    st.session_state.cart_total = 0
+
+# Add this to your sidebar (find your sidebar code and add this)
+with st.sidebar:
+    st.header("🛒 Your Cart")
+    if st.session_state.cart:
+        for item in st.session_state.cart:
+            st.write(f"- {item['name']}: ${item['price']}")
+        st.write(f"**Total: ${st.session_state.cart_total}**")
+        if st.button("Checkout"):
+            st.success("Checkout coming soon!")
+    else:
+        st.write("Cart is empty")
 # ===============================
 # SIDEBAR CSS  ← LETAK SINI
 # ===============================
